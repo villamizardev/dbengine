@@ -32,11 +32,9 @@ public class BPlusTree {
 	public void insert(int key, double value) {
 		if (isEmpty()) {
 			LeafNode leafNode = new LeafNode(this.m, new DictionaryPair(key, value));
-			this.firstLeaf = leafNode;
-			
+			this.firstLeaf = leafNode;		
 		} else {
 			LeafNode leafNode = (this.root == null) ? this.firstLeaf : findLeafNode(key);
-
 			if (!leafNode.insert(new DictionaryPair(key, value))) {
 
 				leafNode.dictionary[leafNode.numPairs] = new DictionaryPair(key, value);
@@ -463,6 +461,31 @@ public class BPlusTree {
 			return null;
 		} else {
 			return dps[index].value;
+		}
+	}
+	
+	/**
+	 * Search node using node key
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public Boolean update(int key, Double value) {
+
+		if (isEmpty()) {
+			return null;
+		}
+
+		LeafNode leafNode = (this.root == null) ? this.firstLeaf : findLeafNode(key);
+
+		DictionaryPair[] dps = leafNode.dictionary;
+		int index = binarySearch(dps, leafNode.numPairs, key);
+
+		if (index < 0) {
+			return null;
+		} else {
+			dps[index].value = value;
+			return true;
 		}
 	}
 
