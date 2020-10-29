@@ -13,7 +13,7 @@ public class App {
 		bpt.insert(31, 32);
 		
 		Double found = null; 
-		found = bpt.search(250);
+		found = bpt.search(31);
 		
 		if ( found != null) {
 			System.out.println("Valor encontrado: " + found);
